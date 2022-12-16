@@ -1,10 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import {CodePipeline, CodePipelineSource, ShellStep} from 'aws-cdk-lib/pipelines';
+import {CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep} from 'aws-cdk-lib/pipelines';
+import {MyPipelineAppStage} from './stage';
 
 export class MyPipelineStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
+        const generalEnv = props?.env
 
         const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'TestPipeline',
@@ -16,5 +18,12 @@ export class MyPipelineStack extends cdk.Stack {
                         'npx cdk synth']
             })
         });
+
+        const testingStage = pipeline.addStage(new MyPipelineAppStage(this, "test", {
+            env: generalEnv
+        }));
+
+        testingStage.addPre(new ShellStep("Run Unit Tests", {commands: ['npm install', 'npm test']}));
+        testingStage.addPost(new ManualApprovalStep('Manual approval before production'));
     }
 }
