@@ -1,6 +1,6 @@
 import json
 
-def handler(event, context):
+def lambda_handler(event, context):
     print('request: {}'.format(json.dumps(event)))
     r = requests.get('http://example.com/api')
     print(f"res is {r}",)
