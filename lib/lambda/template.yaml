@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Example lambda
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  MySkillLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: hello.handler
+      Runtime: python3.8
+      CodeUri: .
+      Description: Example Skill
+      MemorySize: 128
+      Timeout: 60
+      Role: >-
+        arn:aws:iam::514503855955:role/test-LambdaStack-LambdaFunctionServiceRoleC555A460-ZHB7N6JP2LF1
+      Events:
+        AlexaSkillEvent:
+          Type: AlexaSkill
