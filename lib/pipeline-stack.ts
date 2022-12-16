@@ -9,7 +9,7 @@ export class MyPipelineStack extends cdk.Stack {
         const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'TestPipeline',
             synth: new ShellStep('Synth', {
-                input: CodePipelineSource.gitHub('MARudnicki/lambda-cdk', 'main'), //Remember to change
+                input: CodePipelineSource.gitHub('MARudnicki/lambda-cdk', 'master'), //Remember to change
                 commands: [
                     'npm ci',
                     'npx cdk synth'
