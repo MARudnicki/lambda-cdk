@@ -23,7 +23,13 @@ export class MyPipelineStack extends cdk.Stack {
             env: generalEnv
         }));
 
-        testingStage.addPre(new ShellStep("Run Unit Tests", {commands: ['npm install', 'npm test']}));
+        testingStage.addPre(new ShellStep("Run Unit Tests", {
+            commands: [
+                'whoami',
+                'pwd',
+                'find .',
+                'pip install -r requirements.txt']
+        }));
         testingStage.addPost(new ManualApprovalStep('Manual approval before production'));
     }
 }

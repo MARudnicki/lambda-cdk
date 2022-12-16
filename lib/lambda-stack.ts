@@ -8,7 +8,7 @@ export class MyLambdaStack extends cdk.Stack {
         super(scope, id, props);
         new Function(this, 'LambdaFunction', {
             runtime: Runtime.PYTHON_3_8, //using node for this, but can easily use python or other
-            handler: 'hello.handler',
+            handler: 'src/hello.handler',
             code: Code.fromAsset(path.join(__dirname, 'lambda')), //resolving to ./lambda directory
             environment: {"stageName": stageName} //inputting stagename
         });
