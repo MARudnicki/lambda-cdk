@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Runtime} from 'aws-cdk-lib/aws-lambda';
 import {PythonFunction, PythonLayerVersion} from "@aws-cdk/aws-lambda-python-alpha";
-import {Duration} from "aws-cdk-lib";
+import {DockerImage, Duration} from "aws-cdk-lib";
 
 export class MyLambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string, stageName: string, props?: cdk.StackProps) {
@@ -14,8 +14,11 @@ export class MyLambdaStack extends cdk.Stack {
                     environment: {"stageName": stageName} //inputting stagename
                 });*/
 
+        const entryPath = 'lib/lambda';
+        const image = DockerImage.fromBuild(entryPath);
+
         new PythonFunction(this, "LambdaFunction", {
-            entry: 'lib/lambda',
+            entry: entryPath,
             runtime: Runtime.PYTHON_3_8,
             index: 'main.py',
             handler: 'lambda_handler',
