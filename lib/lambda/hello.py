@@ -2,6 +2,8 @@ import json
 
 def handler(event, context):
     print('request: {}'.format(json.dumps(event)))
+    r = requests.get('http://example.com/api')
+    print(f"res is {r}",)
     return {
         'statusCode': 200,
         'headers': {
