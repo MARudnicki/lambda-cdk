@@ -28,8 +28,8 @@ export class MyPipelineStack extends cdk.Stack {
                 'whoami',
                 'pwd',
                 'find .',
-                'pip install -r requirements.txt']
+                'pip install -r ./lib/lambda/requirements.txt']
         }));
-        testingStage.addPost(new ManualApprovalStep('Manual approval before production'));
+        // testingStage.addPost(new ManualApprovalStep('Manual approval before production'));
     }
 }
