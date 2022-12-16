@@ -10,13 +10,10 @@ export class MyPipelineStack extends cdk.Stack {
             pipelineName: 'TestPipeline',
             synth: new ShellStep('Synth', {
                 input: CodePipelineSource.gitHub('MARudnicki/lambda-cdk', 'master'), //Remember to change
-                commands: [
-                    'find .',
-                    'npm ci',
-                    'find .',
-                    'npx cdk synth',
-                    'find .'
-                ]
+                commands:
+                    ['npm ci',
+                        // 'npm run build',
+                        'npx cdk synth']
             })
         });
     }
